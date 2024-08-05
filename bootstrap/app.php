@@ -12,7 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->group('web', [
-            \App\Http\Middleware\HandleInertiaRequests::class
+            \App\Http\Middleware\HandleInertiaRequests::class,
+            \Illuminate\Session\Middleware\StartSession::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
