@@ -59,17 +59,31 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit($post)
     {
-        //
+        $post = Post::find($post);
+        return inertia('Posts/Edit', compact('post'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $post)
     {
-        //
+        //set validation
+        $request->validate([
+            'title'   => 'required',
+            'content' => 'required',
+        ]);
+
+        //update post
+        Post::where('id', $post)->update([
+            'title'     => $request->title,
+            'content'   => $request->content
+        ]);
+
+        //redirect
+        return redirect()->route('posts.index')->with('success', 'Data Berhasil Diupdate!');
     }
 
     /**
