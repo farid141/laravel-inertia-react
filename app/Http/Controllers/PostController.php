@@ -89,8 +89,13 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy($post)
     {
-        //
+        $post = Post::find($post);
+        //delete post
+        $post->delete();
+
+        //redirect
+        return redirect()->route('posts.index')->with('success', 'Data Berhasil Dihapus!');
     }
 }

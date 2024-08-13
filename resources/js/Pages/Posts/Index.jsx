@@ -7,7 +7,14 @@ import Layout from '../../Layouts/Default';
 //import Link
 import { Link } from '@inertiajs/inertia-react';
 
+//import inertia adapter
+import { Inertia } from '@inertiajs/inertia';
+
 export default function PostIndex({ posts, session }) {
+    //method deletePost
+    const deletePost = async (id) => {
+        Inertia.delete(`/posts/${id}`);
+    }
 
   return (
     <Layout>
@@ -38,6 +45,7 @@ export default function PostIndex({ posts, session }) {
                                 <td>{ post.content }</td>
                                 <td className="text-center">
                                     <Link href={`/posts/${post.id}/edit`} className="btn btn-sm btn-primary me-2">EDIT</Link>
+                                    <button onClick={() => deletePost(post.id)} className="btn btn-sm btn-danger">DELETE</button>
                                 </td>
                             </tr>
                         )) }
